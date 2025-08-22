@@ -29,7 +29,7 @@ services:
   - key: DB_USER
     value: doadmin
   - key: DB_PASSWORD
-    value: AVNS_blW05oKVFXuI1urt91Y
+    value: ${DB_PASSWORD}
   - key: DB_HOST
     value: eskriba-prod-do-user-24658389-0.f.db.ondigitalocean.com
   - key: DB_PORT
