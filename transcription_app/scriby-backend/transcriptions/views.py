@@ -5,7 +5,8 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
 from .models import Transcription
 from .serializers import TranscriptionSerializer
@@ -15,9 +16,13 @@ class TranscriptionViewSet(viewsets.ModelViewSet):
     """
     ViewSet for managing transcriptions.
     """
-    queryset = Transcription.objects.all()
     serializer_class = TranscriptionSerializer
-    permission_classes = [AllowAny]  # Explicitly allow any access for testing
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Return transcriptions for recordings owned by the authenticated user
+        return Transcription.objects.filter(recording__user=self.request.user)
 
     @action(detail=True, methods=['post'])
     def analyze(self, request, pk=None):
@@ -36,13 +41,14 @@ class AnalyzeTranscriptionView(APIView):
     """
     API view for analyzing transcriptions with AI.
     """
-    permission_classes = [AllowAny]  # Explicitly allow any access for testing
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
         """
         Start AI analysis for a specific transcription.
         """
-        transcription = get_object_or_404(Transcription, pk=pk)
+        transcription = get_object_or_404(Transcription, pk=pk, recording__user=request.user)
         
         # TODO: Implement AI analysis logic
         # For now, return a placeholder response
@@ -57,13 +63,14 @@ class ExportTranscriptionView(APIView):
     """
     API view for exporting transcriptions in various formats.
     """
-    permission_classes = [AllowAny]  # Explicitly allow any access for testing
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
         """
         Export a transcription in the requested format.
         """
-        transcription = get_object_or_404(Transcription, pk=pk)
+        transcription = get_object_or_404(Transcription, pk=pk, recording__user=request.user)
         export_format = request.query_params.get('format', 'json')
         
         if export_format == 'json':

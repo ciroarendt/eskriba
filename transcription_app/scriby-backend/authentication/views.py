@@ -5,6 +5,8 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -17,14 +19,16 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    # authentication_classes = [TokenAuthentication]  # Temporarily disabled for testing
-    # permission_classes = [IsAuthenticated]  # Temporarily disabled for testing
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class RegisterView(APIView):
     """
     API view for user registration.
     """
+    permission_classes = [AllowAny]
+    
     def post(self, request):
         """
         Register a new user.
@@ -46,6 +50,8 @@ class LoginView(APIView):
     """
     API view for user login.
     """
+    permission_classes = [AllowAny]
+    
     def post(self, request):
         """
         Authenticate user and return token.
@@ -74,34 +80,39 @@ class LogoutView(APIView):
     """
     API view for user logout.
     """
-    # authentication_classes = [TokenAuthentication]  # Temporarily disabled for testing
-    # permission_classes = [IsAuthenticated]  # Temporarily disabled for testing
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         """
         Logout user by deleting token.
         """
-        # TODO: Implement proper token deletion when authentication is enabled
-        return Response({
-            'status': 'success',
-            'message': 'Logout successful'
-        }, status=status.HTTP_200_OK)
+        try:
+            request.user.auth_token.delete()
+            return Response({
+                'status': 'success',
+                'message': 'Logout successful'
+            }, status=status.HTTP_200_OK)
+        except:
+            return Response({
+                'status': 'error',
+                'message': 'Error during logout'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProfileView(APIView):
     """
     API view for user profile management.
     """
-    # authentication_classes = [TokenAuthentication]  # Temporarily disabled for testing
-    # permission_classes = [IsAuthenticated]  # Temporarily disabled for testing
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         """
         Get user profile information.
         """
-        # TODO: Return actual user profile when authentication is enabled
+        serializer = UserSerializer(request.user)
         return Response({
             'status': 'success',
-            'message': 'Profile endpoint',
-            'user': 'anonymous'
+            'user': serializer.data
         }, status=status.HTTP_200_OK)
