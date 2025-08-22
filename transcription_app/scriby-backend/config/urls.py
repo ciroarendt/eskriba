@@ -18,6 +18,7 @@ def api_health(request):
     """Simple health check endpoint"""
     return JsonResponse({'status': 'ok', 'message': 'Eskriba API is running'})
 
+@csrf_exempt
 def api_auth_register(request):
     """Register endpoint integrated with health pattern"""
     if request.method == 'POST':
@@ -47,6 +48,7 @@ def api_auth_register(request):
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
+@csrf_exempt
 def api_auth_login(request):
     """Login endpoint integrated with health pattern"""
     if request.method == 'POST':
