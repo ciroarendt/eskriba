@@ -16,6 +16,10 @@ def api_test_auth(request):
     """Test auth endpoint"""
     return JsonResponse({'status': 'ok', 'message': 'Auth endpoint test'})
 
+def api_register_test(request):
+    """Test register endpoint"""
+    return JsonResponse({'status': 'ok', 'message': 'Register endpoint test'})
+
 # API Router
 router = DefaultRouter()
 
@@ -26,16 +30,8 @@ urlpatterns = [
     path('api/', include('transcriptions.urls')),
     path('api/health/', api_health, name='api-health'),
     path('api/auth-test/', api_test_auth, name='api-auth-test'),
+    path('api/auth/register-test/', api_register_test, name='api-register-test'),
     path('api-auth/', include('rest_framework.urls')),
-]
-
-# Add authentication URLs directly
-from authentication import views as auth_views
-urlpatterns += [
-    path('api/auth/register/', auth_views.RegisterView.as_view(), name='api-register'),
-    path('api/auth/login/', auth_views.LoginView.as_view(), name='api-login'),
-    path('api/auth/logout/', auth_views.LogoutView.as_view(), name='api-logout'),
-    path('api/auth/profile/', auth_views.ProfileView.as_view(), name='api-profile'),
 ]
 
 # Serve media files in development
