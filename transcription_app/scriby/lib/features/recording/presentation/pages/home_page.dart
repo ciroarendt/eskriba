@@ -6,6 +6,7 @@ import '../../../lecture/presentation/pages/lecture_mode_page.dart';
 import '../widgets/recording_button.dart';
 import '../widgets/quick_actions_row.dart';
 import '../widgets/recent_recordings_list.dart';
+import '../../../../widgets/api_status_widget.dart';
 
 /// Home Page - Main screen of Eskriba app
 /// Follows the "1 Toque para Gravar" principle from CLAUDE.md
@@ -73,6 +74,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                   
                   // Welcome Message
                   _buildWelcomeCard(),
+                  
+                  const SizedBox(height: 16),
+                  
+                  // API Status
+                  const ApiStatusWidget(),
                   
                   const SizedBox(height: 32),
                   

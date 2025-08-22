@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:flutter_quill/quill_delta.dart';
 
 import '../../../../shared/themes/app_theme.dart';
 import '../../../../services/audio_recording_service.dart';
@@ -67,9 +68,9 @@ class _RichNotesEditorWidgetState extends State<RichNotesEditorWidget> {
     try {
       if (note['delta'] != null) {
         // Load from stored Delta JSON
-        final doc = quill.Document.fromDelta(
-          quill.Delta.fromJson(List.from(note['delta'] as List)),
-        );
+        final deltaJson = List<Map<String, dynamic>>.from(note['delta'] as List);
+        final delta = Delta.fromJson(deltaJson);
+        final doc = quill.Document.fromDelta(delta);
         try { _quillController.dispose(); } catch (_) {}
         _quillController = quill.QuillController(
           document: doc,
@@ -165,15 +166,16 @@ class _RichNotesEditorWidgetState extends State<RichNotesEditorWidget> {
             child: Column(
               children: [
                 // Formatting Toolbar (Quill)
-                quill.QuillToolbar.basic(controller: _quillController),
+                quill.QuillSimpleToolbar(controller: _quillController),
 
                 // Rich editor area
                 Container(
                   padding: const EdgeInsets.all(8),
                   constraints: const BoxConstraints(minHeight: 140, maxHeight: 260),
-                  child: quill.QuillEditor.basic(
+                  child: quill.QuillEditor(
                     controller: _quillController,
-                    readOnly: false,
+                    scrollController: ScrollController(),
+                    focusNode: FocusNode(),
                   ),
                 ),
                 

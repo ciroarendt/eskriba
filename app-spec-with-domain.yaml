@@ -1,0 +1,55 @@
+ingress:
+  rules:
+  - component:
+      name: web
+    match:
+      path:
+        prefix: /
+domains:
+- domain: api.eskriba.app
+  type: PRIMARY
+name: eskriba
+region: atl
+services:
+- environment_slug: python
+  envs:
+  - key: SECRET_KEY
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:Pq6tMdPtheNDZeRlGWKEBMInaAuALyE4:CvKJtQbZdy9qIA+CmSNQTetF/yaEaHInNwV7aXyzsMk8kG8hW1oszZzTTCkwNBo+6gYQ9qFRBN2F2BNh4ckFTQ==]
+  - key: DEBUG
+    scope: RUN_AND_BUILD_TIME
+    value: "False"
+  - key: DJANGO_SETTINGS_MODULE
+    scope: RUN_AND_BUILD_TIME
+    value: config.settings.production
+  - key: DB_NAME
+    scope: RUN_AND_BUILD_TIME
+    value: defaultdb
+  - key: DB_USER
+    scope: RUN_AND_BUILD_TIME
+    value: doadmin
+  - key: DB_PASSWORD
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: EV[1:qU1eScjDmDEvhyE/7Y9Mu5g4dsHg0b5F:4P912meouyHyuwxvDSiU0eUX7wCiHPvxCbCtilW8G3Pl1yfuOsz9cA==]
+  - key: DB_HOST
+    scope: RUN_AND_BUILD_TIME
+    value: eskriba-prod-do-user-24658389-0.f.db.ondigitalocean.com
+  - key: DB_PORT
+    scope: RUN_AND_BUILD_TIME
+    value: "25060"
+  - key: ALLOWED_HOSTS
+    scope: RUN_AND_BUILD_TIME
+    value: .ondigitalocean.app,api.eskriba.app,eskriba.app
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: ciroarendt/eskriba
+  http_port: 8080
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  name: web
+  run_command: python manage.py migrate && gunicorn config.wsgi:application --bind
+    0.0.0.0:$PORT
+  source_dir: transcription_app/scriby-backend
