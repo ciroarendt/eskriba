@@ -136,8 +136,8 @@ router = DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/health/', api_health, name='api-health'),
-    path('api/register/', api_auth_register, name='api-register'),
-    path('api/login/', api_auth_login, name='api-login'),
+    path('register/', api_auth_register, name='register'),
+    path('login/', api_auth_login, name='login'),
     path('api/', include(router.urls)),
     path('api/', include('recordings.urls')),
     path('api/', include('transcriptions.urls')),
