@@ -25,12 +25,12 @@ router = DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
-    path('api/', include('recordings.urls')),
-    path('api/', include('transcriptions.urls')),
     path('api/health/', api_health, name='api-health'),
     path('api/auth-test/', api_test_auth, name='api-auth-test'),
     path('api/auth/register-test/', api_register_test, name='api-register-test'),
+    path('api/', include(router.urls)),
+    path('api/', include('recordings.urls')),
+    path('api/', include('transcriptions.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]
 
