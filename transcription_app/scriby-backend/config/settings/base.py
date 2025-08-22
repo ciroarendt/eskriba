@@ -34,11 +34,10 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    # Comentado temporariamente para setup rápido
-    # 'authentication',
-    # 'recordings', 
-    # 'transcriptions',
-    # 'analytics',
+    'authentication',
+    'recordings', 
+    'transcriptions',
+    # 'analytics',  # Comentado até ser implementado
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
