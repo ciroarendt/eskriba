@@ -5,8 +5,8 @@ from .models import Recording, Transcription, Analysis
 class RecordingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recording
-        fields = ['id', 'title', 'audio_file', 'duration', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'audio_file', 'duration', 'created_at', 'status']
+        read_only_fields = ['id', 'created_at', 'status']
 
 
 class TranscriptionSerializer(serializers.ModelSerializer):
