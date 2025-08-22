@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  // Use production backend URL (temporarily using DigitalOcean URL while DNS propagates)
+  // Use production backend URL (using working DigitalOcean URL while api.eskriba.app DNS propagates)
   static const String baseUrl = String.fromEnvironment(
     'API_BASE_URL',
     defaultValue: 'https://eskriba-ce5xq.ondigitalocean.app/api',
