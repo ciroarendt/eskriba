@@ -20,7 +20,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/', include('recordings.urls')),
     path('api/', include('transcriptions.urls')),
-    path('api/', include('authentication.urls')),
+    path('api/auth/', include('authentication.urls')),
     path('api/health/', api_health, name='api-health'),
     path('api-auth/', include('rest_framework.urls')),
 ]

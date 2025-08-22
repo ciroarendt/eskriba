@@ -45,7 +45,7 @@ dependencies:
   audioplayers: ^5.2.1
   
   # File picker
-  file_picker: ^6.1.1
+  file_picker: ^8.0.0+11
   
   # Path provider
   path_provider: ^2.1.1
