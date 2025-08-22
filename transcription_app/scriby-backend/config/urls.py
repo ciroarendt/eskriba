@@ -12,6 +12,10 @@ def api_health(request):
     """Simple health check endpoint"""
     return JsonResponse({'status': 'ok', 'message': 'Eskriba API is running'})
 
+def api_test_auth(request):
+    """Test auth endpoint"""
+    return JsonResponse({'status': 'ok', 'message': 'Auth endpoint test'})
+
 # API Router
 router = DefaultRouter()
 
@@ -22,6 +26,7 @@ urlpatterns = [
     path('api/', include('transcriptions.urls')),
     path('api/auth/', include('authentication.urls')),
     path('api/health/', api_health, name='api-health'),
+    path('api/auth-test/', api_test_auth, name='api-auth-test'),
     path('api-auth/', include('rest_framework.urls')),
 ]
 
