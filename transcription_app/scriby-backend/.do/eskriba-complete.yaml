@@ -1,12 +1,12 @@
-name: eskriba-backend-api
+name: eskriba
 services:
 - name: web
-  source_dir: /
+  source_dir: transcription_app/scriby-backend
   github:
     repo: ciroarendt/eskriba
     branch: main
     deploy_on_push: true
-  run_command: cd transcription_app/scriby-backend && python manage.py migrate && gunicorn --worker-tmp-dir /dev/shm config.wsgi:application
+  run_command: python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
   environment_slug: python
   instance_count: 1
   instance_size_slug: basic-xxs
@@ -26,7 +26,7 @@ services:
   - key: DB_USER
     value: doadmin
   - key: DB_PASSWORD
-    value: ${DB_PASSWORD}
+    value: AVNS_blW05oKVFXuI1urt91Y
     type: SECRET
   - key: DB_HOST
     value: eskriba-prod-do-user-24658389-0.f.db.ondigitalocean.com
