@@ -10,6 +10,6 @@ router.register(r'recordings', views.RecordingViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('upload/', views.UploadRecordingView.as_view(), name='upload-recording'),
-    path('<uuid:pk>/transcribe/', views.TranscribeRecordingView.as_view(), name='transcribe-recording'),
+    path('recordings/upload/', views.UploadRecordingView.as_view(), name='upload-recording'),
+    path('recordings/<uuid:pk>/transcribe/', views.TranscribeRecordingView.as_view(), name='transcribe-recording'),
 ]
