@@ -5,6 +5,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404
 from .models import Transcription
 from .serializers import TranscriptionSerializer
@@ -16,8 +17,7 @@ class TranscriptionViewSet(viewsets.ModelViewSet):
     """
     queryset = Transcription.objects.all()
     serializer_class = TranscriptionSerializer
-    # authentication_classes = [TokenAuthentication]  # Temporarily disabled for testing
-    # permission_classes = [IsAuthenticated]  # Temporarily disabled for testing
+    permission_classes = [AllowAny]  # Explicitly allow any access for testing
 
     @action(detail=True, methods=['post'])
     def analyze(self, request, pk=None):
@@ -36,8 +36,7 @@ class AnalyzeTranscriptionView(APIView):
     """
     API view for analyzing transcriptions with AI.
     """
-    # authentication_classes = [TokenAuthentication]  # Temporarily disabled for testing
-    # permission_classes = [IsAuthenticated]  # Temporarily disabled for testing
+    permission_classes = [AllowAny]  # Explicitly allow any access for testing
 
     def post(self, request, pk):
         """
@@ -58,8 +57,7 @@ class ExportTranscriptionView(APIView):
     """
     API view for exporting transcriptions in various formats.
     """
-    # authentication_classes = [TokenAuthentication]  # Temporarily disabled for testing
-    # permission_classes = [IsAuthenticated]  # Temporarily disabled for testing
+    permission_classes = [AllowAny]  # Explicitly allow any access for testing
 
     def get(self, request, pk):
         """
