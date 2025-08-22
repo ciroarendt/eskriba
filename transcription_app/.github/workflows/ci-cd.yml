@@ -1,0 +1,124 @@
+name: Scriby CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+          
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install Python dependencies
+      run: |
+        cd scriby-backend
+        pip install -r requirements.txt
+        
+    - name: Install Node.js dependencies
+      run: |
+        cd scriby-dashboard
+        npm ci
+        
+    - name: Run Python tests
+      env:
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
+        REDIS_URL: redis://localhost:6379/0
+      run: |
+        cd scriby-backend
+        python manage.py test
+        
+    - name: Run Node.js tests
+      run: |
+        cd scriby-dashboard
+        npm test
+        
+    - name: Run Flutter tests
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.32.8'
+      run: |
+        cd scriby
+        flutter test
+
+  build-and-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Build and push Backend image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./scriby-backend
+        push: true
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend:latest
+        
+    - name: Build and push Dashboard image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./scriby-dashboard
+        push: true
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-dashboard:latest
+        
+    - name: Deploy to Production
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.PROD_HOST }}
+        username: ${{ secrets.PROD_USER }}
+        key: ${{ secrets.PROD_SSH_KEY }}
+        script: |
+          cd /opt/scriby
+          docker-compose pull
+          docker-compose up -d
+          docker system prune -f

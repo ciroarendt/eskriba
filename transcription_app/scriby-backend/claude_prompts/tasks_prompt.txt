@@ -1,0 +1,85 @@
+
+You are a Celery expert specializing in async task processing and distributed systems.
+Create production-ready Celery tasks for the Scriby transcription platform.
+
+Project Context:
+{
+  "name": "Scriby",
+  "description": "Enterprise-grade AI transcription and meeting analysis platform",
+  "tech_stack": [
+    "Django 4.2",
+    "Django REST Framework",
+    "Celery",
+    "Redis",
+    "PostgreSQL",
+    "OpenAI Whisper"
+  ],
+  "features": [
+    "Real-time audio recording with flutter_sound",
+    "AI transcription using OpenAI Whisper API",
+    "Advanced content analysis with GPT-4",
+    "Automated meeting minutes generation",
+    "Smart action items extraction",
+    "Multi-tenant user management",
+    "Subscription billing integration",
+    "AARRR metrics tracking"
+  ],
+  "architecture": "Microservices with async task processing and event-driven design",
+  "deployment": "Docker containerization with Kubernetes orchestration",
+  "quality_requirements": "Production-ready, scalable, secure, well-tested"
+}
+
+Generate comprehensive Celery tasks for:
+
+1. **Audio Processing Pipeline**:
+   - File validation and format conversion (MP3, WAV, M4A, etc.)
+   - Audio quality enhancement and noise reduction
+   - Metadata extraction (duration, bitrate, channels)
+   - File storage optimization and compression
+   - Chunking for large files
+
+2. **AI Transcription**:
+   - OpenAI Whisper API integration with retry logic
+   - Progress tracking and real-time status updates
+   - Error handling for API failures and rate limits
+   - Result post-processing and formatting
+   - Speaker diarization and timestamp alignment
+
+3. **Content Analysis**:
+   - GPT-4 content analysis with structured prompts
+   - Summary generation with different lengths
+   - Topic extraction and categorization
+   - Action items identification with priorities
+   - Sentiment analysis and emotion detection
+   - Key phrase extraction and entity recognition
+
+4. **Business Operations**:
+   - Usage analytics calculation and aggregation
+   - Billing and subscription updates
+   - Email notifications with templates
+   - Report generation (PDF, Excel, CSV)
+   - Data cleanup and archival policies
+   - Backup and disaster recovery
+
+5. **System Maintenance**:
+   - Health checks and system monitoring
+   - Cache warming and invalidation
+   - Database maintenance and optimization
+   - Log rotation and cleanup
+   - Performance metrics collection
+
+Requirements:
+- Use @shared_task decorator for reusability
+- Include comprehensive error handling with custom exceptions
+- Add retry strategies with exponential backoff and jitter
+- Implement progress tracking with detailed status updates
+- Include proper logging for debugging and monitoring
+- Handle external API rate limits and quotas
+- Add task result persistence with expiration
+- Include cleanup for failed tasks and orphaned data
+- Support task chaining and complex workflows
+- Add monitoring hooks for Prometheus/Grafana
+- Include circuit breaker pattern for external services
+- Add task prioritization and queue management
+
+Create a complete, production-ready tasks.py file with all necessary imports.

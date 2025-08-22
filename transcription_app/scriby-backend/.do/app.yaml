@@ -1,0 +1,36 @@
+name: eskriba-backend-api
+services:
+- name: web
+  source_dir: /
+  github:
+    repo: ciroarendt/APP_11me
+    branch: main
+    deploy_on_push: true
+  run_command: gunicorn --worker-tmp-dir /dev/shm config.wsgi:application
+  environment_slug: python
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  http_port: 8080
+  routes:
+  - path: /
+  envs:
+  - key: SECRET_KEY
+    value: django-production-secret-key-eskriba-2025
+    type: SECRET
+  - key: DEBUG
+    value: "False"
+  - key: DJANGO_SETTINGS_MODULE
+    value: config.settings.production
+  - key: DB_NAME
+    value: defaultdb
+  - key: DB_USER
+    value: doadmin
+  - key: DB_PASSWORD
+    value: ${DB_PASSWORD}
+    type: SECRET
+  - key: DB_HOST
+    value: eskriba-prod-do-user-24658389-0.f.db.ondigitalocean.com
+  - key: DB_PORT
+    value: "25060"
+  - key: ALLOWED_HOSTS
+    value: .ondigitalocean.app,api.eskriba.app,eskriba.app

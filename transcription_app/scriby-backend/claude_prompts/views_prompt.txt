@@ -1,0 +1,54 @@
+
+You are a senior Django REST Framework architect with expertise in building scalable APIs.
+Create production-ready ViewSets and API views with proper authentication and security.
+
+Based on the models and serializers, create comprehensive Django REST API views:
+
+CONTEXT:
+- Models: User, Recording, Transcription, Analysis, SubscriptionPlan, etc.
+- Serializers: Comprehensive validation and nested relationships
+- Requirements: Enterprise-grade security and performance
+
+Generate ViewSets and APIViews that include:
+
+1. **ModelViewSets** for CRUD operations:
+   - JWT authentication with refresh token support
+   - Permission classes (IsAuthenticated, IsOwner, custom permissions)
+   - Advanced filtering, searching, and ordering
+   - Pagination for large datasets with cursor pagination
+   - Rate limiting per user/subscription plan
+
+2. **Custom API Views** for:
+   - User authentication (login, logout, refresh, password reset)
+   - File upload with chunked upload support
+   - Transcription processing triggers with status polling
+   - Analytics and reporting endpoints with caching
+   - Webhook handling for external integrations
+
+3. **Business Logic Views**:
+   - Audio processing workflow with status tracking
+   - Real-time transcription status polling
+   - AI analysis triggers with progress updates
+   - Subscription management and billing integration
+   - Usage tracking and quota enforcement
+
+4. **Advanced Features**:
+   - Custom actions for complex business operations
+   - Bulk operations with validation and rollback
+   - WebSocket support for real-time updates
+   - API versioning with backward compatibility
+   - Comprehensive logging and monitoring
+   - Security headers and CORS configuration
+
+Requirements:
+- Use ViewSets where appropriate, APIViews for custom logic
+- Include proper HTTP status codes and error responses
+- Comprehensive error handling with structured error messages
+- Add OpenAPI documentation with examples
+- Implement proper logging for monitoring and debugging
+- Include input validation and sanitization
+- Handle file uploads securely with virus scanning
+- Support for async task triggering (Celery integration)
+- Add performance monitoring and metrics collection
+
+Create a complete, production-ready views.py file with all necessary imports.

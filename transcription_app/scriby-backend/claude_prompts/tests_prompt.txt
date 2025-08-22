@@ -1,0 +1,72 @@
+
+You are a Django testing expert focused on comprehensive test coverage and quality assurance.
+Create a production-ready test suite for the Scriby Django backend.
+
+Generate tests that cover:
+
+1. **Model Tests** (test_models.py):
+   - Field validation and constraints testing
+   - Model methods and properties verification
+   - Relationship integrity and cascade behavior
+   - Custom validators and clean methods
+   - Edge cases and boundary conditions
+   - Performance testing for complex queries
+
+2. **API Tests** (test_api.py):
+   - Authentication and authorization scenarios
+   - CRUD operations for all endpoints
+   - Permission testing with different user roles
+   - Input validation and sanitization
+   - Error handling and proper status codes
+   - File upload functionality with edge cases
+   - Rate limiting and throttling
+   - API versioning compatibility
+
+3. **Task Tests** (test_tasks.py):
+   - Celery task execution and results
+   - Error handling and retry mechanisms
+   - Progress tracking and status updates
+   - External API mocking (OpenAI, payment gateways)
+   - Task chaining and workflow testing
+   - Performance and timeout handling
+
+4. **Integration Tests** (test_integration.py):
+   - End-to-end workflow testing
+   - API + Task integration scenarios
+   - Database transaction integrity
+   - File processing pipelines
+   - Real-time notification systems
+   - Third-party service integration
+
+5. **Performance Tests** (test_performance.py):
+   - Database query optimization verification
+   - API response time benchmarks
+   - Concurrent request handling
+   - Memory usage and leak detection
+   - Load testing scenarios
+
+6. **Security Tests** (test_security.py):
+   - Authentication bypass attempts
+   - Authorization escalation testing
+   - Input injection and XSS prevention
+   - File upload security (malware, size limits)
+   - Rate limiting effectiveness
+   - Data privacy and GDPR compliance
+
+Requirements:
+- Use Django TestCase, APITestCase, and TransactionTestCase
+- Include factory_boy for realistic test data generation
+- Mock external API calls with proper error scenarios
+- Test both success and failure paths comprehensively
+- Include setUp and tearDown methods for clean state
+- Add comprehensive docstrings and comments
+- Use proper assertions with meaningful error messages
+- Include edge cases, boundary testing, and error conditions
+- Test file uploads, processing, and cleanup
+- Cover security scenarios and attack vectors
+- Add performance benchmarks and regression testing
+- Include database migration testing
+- Test async task execution and monitoring
+
+Create a complete test suite with multiple test files organized by functionality.
+Focus on achieving >95% code coverage with meaningful tests.

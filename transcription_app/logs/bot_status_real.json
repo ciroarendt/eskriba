@@ -1,0 +1,62 @@
+{
+  "backend": {
+    "last_activity": "2025-08-05T23:49:00.041195",
+    "status": "active",
+    "session_start": "2025-08-05T23:48:56.806918",
+    "metrics": {
+      "files_created": 1,
+      "files_modified": 3,
+      "commands_executed": 4,
+      "errors_encountered": 0,
+      "session_duration_minutes": 0.05
+    }
+  },
+  "mobile": {
+    "last_activity": "2025-08-05T23:49:03.909770",
+    "status": "active",
+    "session_start": "2025-08-05T23:49:01.046278",
+    "metrics": {
+      "files_created": 4,
+      "files_modified": 0,
+      "commands_executed": 4,
+      "errors_encountered": 0,
+      "session_duration_minutes": 0.05
+    }
+  },
+  "devops": {
+    "last_activity": "2025-08-05T23:49:07.753690",
+    "status": "active",
+    "session_start": "2025-08-05T23:49:04.914720",
+    "metrics": {
+      "files_created": 0,
+      "files_modified": 4,
+      "commands_executed": 4,
+      "errors_encountered": 0,
+      "session_duration_minutes": 0.05
+    }
+  },
+  "dashboard": {
+    "last_activity": "2025-08-05T23:49:11.193662",
+    "status": "active",
+    "session_start": "2025-08-05T23:49:08.754833",
+    "metrics": {
+      "files_created": 0,
+      "files_modified": 4,
+      "commands_executed": 4,
+      "errors_encountered": 0,
+      "session_duration_minutes": 0.04
+    }
+  },
+  "cascade-claude": {
+    "last_activity": "2025-08-06T08:39:21.909404",
+    "status": "active",
+    "session_start": "2025-08-06T08:39:21.898029",
+    "metrics": {
+      "files_created": 1,
+      "files_modified": 0,
+      "commands_executed": 0,
+      "errors_encountered": 0,
+      "session_duration_minutes": 0.0
+    }
+  }
+}

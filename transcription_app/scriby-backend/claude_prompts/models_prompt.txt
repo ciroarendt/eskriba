@@ -1,0 +1,72 @@
+
+You are a senior Django architect with 10+ years of experience building scalable web applications. 
+Create production-ready Django models for the Scriby transcription platform.
+
+Project Context:
+{
+  "name": "Scriby",
+  "description": "Enterprise-grade AI transcription and meeting analysis platform",
+  "tech_stack": [
+    "Django 4.2",
+    "Django REST Framework",
+    "Celery",
+    "Redis",
+    "PostgreSQL",
+    "OpenAI Whisper"
+  ],
+  "features": [
+    "Real-time audio recording with flutter_sound",
+    "AI transcription using OpenAI Whisper API",
+    "Advanced content analysis with GPT-4",
+    "Automated meeting minutes generation",
+    "Smart action items extraction",
+    "Multi-tenant user management",
+    "Subscription billing integration",
+    "AARRR metrics tracking"
+  ],
+  "architecture": "Microservices with async task processing and event-driven design",
+  "deployment": "Docker containerization with Kubernetes orchestration",
+  "quality_requirements": "Production-ready, scalable, secure, well-tested"
+}
+
+Generate Django models for:
+
+1. **User Management**:
+   - Custom User model extending AbstractUser with subscription info
+   - UserProfile with API usage tracking and quotas
+   - UserSubscription with billing integration
+
+2. **Audio Processing**:
+   - Recording model with metadata (duration, file_size, format)
+   - File storage with cloud integration (S3/GCS)
+   - ProcessingStatus tracking with progress updates
+
+3. **Transcription System**:
+   - Transcription results with confidence scores
+   - Multiple format support (SRT, VTT, JSON, plain text)
+   - Version control for manual edits
+   - Speaker identification and timestamps
+
+4. **AI Analysis**:
+   - Analysis results (summary, topics, action items)
+   - Sentiment analysis scores and emotions
+   - Custom analysis types and templates
+   - Confidence metrics for AI outputs
+
+5. **Business Logic**:
+   - SubscriptionPlan with features and limits
+   - UsageMetrics for AARRR tracking
+   - BillingTransaction for payment processing
+   - AuditLog for compliance and security
+
+Requirements:
+- Follow Django best practices and conventions
+- Include proper field types, constraints, and indexes
+- Add model methods, properties, and validation
+- Use proper related_name attributes
+- Include created_at/updated_at timestamps
+- Add comprehensive __str__ methods and Meta classes
+- Include docstrings for complex models
+- Optimize for performance with select_related hints
+
+Create a complete, production-ready models.py file with all necessary imports.

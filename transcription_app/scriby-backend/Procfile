@@ -1,0 +1,2 @@
+web: gunicorn --worker-tmp-dir /dev/shm config.wsgi:application
+release: python manage.py migrate
