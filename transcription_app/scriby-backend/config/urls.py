@@ -25,6 +25,7 @@ router = DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('test/', api_test_auth, name='test'),
     path('api/health/', api_health, name='api-health'),
     path('api/auth-test/', api_test_auth, name='api-auth-test'),
     path('api/auth/register-test/', api_register_test, name='api-register-test'),
