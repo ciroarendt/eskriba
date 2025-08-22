@@ -18,6 +18,62 @@ def api_health(request):
     """Simple health check endpoint"""
     return JsonResponse({'status': 'ok', 'message': 'Eskriba API is running'})
 
+def api_auth_register(request):
+    """Register endpoint integrated with health pattern"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data.get('username')
+            email = data.get('email') 
+            password = data.get('password')
+            
+            if not all([username, email, password]):
+                return JsonResponse({'error': 'Missing required fields'}, status=400)
+            
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({'error': 'Username already exists'}, status=400)
+            
+            user = User.objects.create_user(username=username, email=email, password=password)
+            token, created = Token.objects.get_or_create(user=user)
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'User registered successfully',
+                'token': token.key,
+                'user_id': user.id
+            }, status=201)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+def api_auth_login(request):
+    """Login endpoint integrated with health pattern"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data.get('username')
+            password = data.get('password')
+            
+            if not all([username, password]):
+                return JsonResponse({'error': 'Missing username or password'}, status=400)
+            
+            user = authenticate(username=username, password=password)
+            if user:
+                token, created = Token.objects.get_or_create(user=user)
+                return JsonResponse({
+                    'status': 'success',
+                    'message': 'Login successful',
+                    'token': token.key,
+                    'user_id': user.id
+                })
+            else:
+                return JsonResponse({'error': 'Invalid credentials'}, status=401)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def api_register(request):
@@ -78,8 +134,8 @@ router = DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/health/', api_health, name='api-health'),
-    path('api/auth/register/', api_register, name='api-register'),
-    path('api/auth/login/', api_login, name='api-login'),
+    path('api/register/', api_auth_register, name='api-register'),
+    path('api/login/', api_auth_login, name='api-login'),
     path('api/', include(router.urls)),
     path('api/', include('recordings.urls')),
     path('api/', include('transcriptions.urls')),
