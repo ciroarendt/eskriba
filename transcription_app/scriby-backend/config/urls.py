@@ -24,10 +24,18 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/', include('recordings.urls')),
     path('api/', include('transcriptions.urls')),
-    path('api/auth/', include('authentication.urls')),
     path('api/health/', api_health, name='api-health'),
     path('api/auth-test/', api_test_auth, name='api-auth-test'),
     path('api-auth/', include('rest_framework.urls')),
+]
+
+# Add authentication URLs directly
+from authentication import views as auth_views
+urlpatterns += [
+    path('api/auth/register/', auth_views.RegisterView.as_view(), name='api-register'),
+    path('api/auth/login/', auth_views.LoginView.as_view(), name='api-login'),
+    path('api/auth/logout/', auth_views.LogoutView.as_view(), name='api-logout'),
+    path('api/auth/profile/', auth_views.ProfileView.as_view(), name='api-profile'),
 ]
 
 # Serve media files in development
