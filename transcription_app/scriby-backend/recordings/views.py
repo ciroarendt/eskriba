@@ -7,6 +7,7 @@ from .serializers import RecordingSerializer, TranscriptionSerializer
 from .tasks import process_transcription
 
 class RecordingViewSet(viewsets.ModelViewSet):
+    queryset = Recording.objects.all()  # Fix: Add queryset attribute for DRF router
     serializer_class = RecordingSerializer
     permission_classes = [AllowAny]  # Temporarily allow public access for testing
     
