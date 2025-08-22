@@ -44,7 +44,7 @@ class UploadRecordingView(APIView):
         if serializer.is_valid():
             recording = serializer.save()
             # Trigger async transcription task
-            process_transcription.delay(recording.id)
+            # process_transcription.delay(recording.id)  # Temporarily disabled due to Redis connection issues
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -59,7 +59,7 @@ class TranscribeRecordingView(APIView):
         try:
             recording = Recording.objects.get(pk=pk)
             # Trigger async transcription task
-            process_transcription.delay(recording.id)
+            # process_transcription.delay(recording.id)  # Temporarily disabled due to Redis connection issues
             return Response({'status': 'transcription started'}, status=status.HTTP_202_ACCEPTED)
         except Recording.DoesNotExist:
             return Response({'error': 'Recording not found'}, status=status.HTTP_404_NOT_FOUND)
