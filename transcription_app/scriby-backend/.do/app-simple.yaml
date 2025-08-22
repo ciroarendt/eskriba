@@ -1,11 +1,12 @@
-name: eskriba-backend
+name: eskriba-backend-api
 services:
 - name: web
-  source_dir: transcription_app/scriby-backend
+  source_dir: /
   github:
     repo: ciroarendt/eskriba
     branch: main
-  run_command: gunicorn config.wsgi:application --bind 0.0.0.0:8080
+    deploy_on_push: true
+  run_command: cd transcription_app/scriby-backend && python manage.py migrate && gunicorn --worker-tmp-dir /dev/shm config.wsgi:application
   environment_slug: python
   instance_count: 1
   instance_size_slug: basic-xxs
@@ -14,7 +15,7 @@ services:
   - path: /
   envs:
   - key: SECRET_KEY
-    value: django-production-secret-key-eskriba-2025
+    value: django-production-secret-key-eskriba-2025-secure
     type: SECRET
   - key: DEBUG
     value: "False"
@@ -25,7 +26,7 @@ services:
   - key: DB_USER
     value: doadmin
   - key: DB_PASSWORD
-    value: ${DB_PASSWORD}
+    value: AVNS_blW05oKVFXuI1urt91Y
     type: SECRET
   - key: DB_HOST
     value: eskriba-prod-do-user-24658389-0.f.db.ondigitalocean.com
