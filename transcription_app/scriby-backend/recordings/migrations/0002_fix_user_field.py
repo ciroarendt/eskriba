@@ -1,5 +1,6 @@
 # Generated to fix user field migration issues
 
+import uuid
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
@@ -31,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Recording',
             fields=[
-                ('id', models.UUIDField(default='uuid.uuid4', editable=False, primary_key=True, serialize=False)),
+                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('title', models.CharField(max_length=200)),
                 ('audio_file', models.FileField(upload_to='recordings/')),
                 ('duration', models.DurationField(blank=True, null=True)),
@@ -43,7 +44,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Transcription',
             fields=[
-                ('id', models.UUIDField(default='uuid.uuid4', editable=False, primary_key=True, serialize=False)),
+                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('text', models.TextField()),
                 ('confidence_score', models.FloatField(blank=True, null=True)),
                 ('processing_time', models.DurationField(blank=True, null=True)),
@@ -54,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Analysis',
             fields=[
-                ('id', models.UUIDField(default='uuid.uuid4', editable=False, primary_key=True, serialize=False)),
+                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('summary', models.TextField()),
                 ('key_topics', models.JSONField(default=list)),
                 ('action_items', models.JSONField(default=list)),
